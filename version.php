@@ -26,6 +26,10 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2019080800;     // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2019080902;     // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2019051100;     // Requires this Moodle version.
 $plugin->component = 'tool_category_admin'; // Full name of the plugin (used for diagnostics).
+$plugin->dependencies = array(
+    'theme_boostplus' => 2019080800
+);
+$plugin->maturity = MATURITY_BETA;

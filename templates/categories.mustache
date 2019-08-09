@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            {{#str}}category, tool_category_admin{{/str}}
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#categories}}
+                    <tr>
+                        <td>
+                            {{{category}}}
+                        </td>
+                        <td>
+                            <a href="{{{wwwroot}}}/admin/tool/category_admin/manageplugins.php?categoryid={{{categoryid}}}" class="btn btn-outline-primary">{{#str}}modify, tool_category_admin{{/str}}</a>
+                        </td>
+                    </tr>
+                    {{/categories}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

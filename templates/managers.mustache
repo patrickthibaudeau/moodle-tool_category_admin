@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <a href="{{{wwwroot}}}/admin/tool/category_admin/edit_manager.php" class="btn btn-outline-success">{{#str}}add, tool_category_admin{{/str}}</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            {{#str}}name, tool_category_admin{{/str}}
+                        </th>
+                        <th>
+                            {{#str}}category, tool_category_admin{{/str}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#managers}}
+                    <tr>
+                        <td>
+                            <a href="{{{wwwroot}}}/admin/tool/category_admin/edit_manager.php?id={{{id}}}">{{{name}}}</a>
+                        </td>
+                        <td>
+                            {{{category}}}
+                        </td>
+                    </tr>
+                    
+                    {{/managers}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

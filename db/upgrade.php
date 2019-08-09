@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,11 +18,10 @@
 /**
  * Upgrade scirpt for tool_monitor.
  *
- * @package    tool_monitor
+ * @package    tool_category_admin
  * @copyright  2014 onwards Ankit Agarwal <ankit.agrr@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -30,9 +30,23 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion
  * @return bool always true
  */
-function xmldb_category_admin_upgrade($oldversion) {
+function xmldb_tool_category_admin_upgrade($oldversion) {
     global $CFG, $DB;
-  
+    
+    $dbman = $DB->get_manager();
+
+    if ($oldversion < 2019080803) {
+
+        // Define table tool_catadmin_administrators to be renamed to NEWNAMEGOESHERE.
+        $table = new xmldb_table('tool_catadmin_administrators');
+
+        // Launch rename table for tool_catadmin_administrators.
+        $dbman->rename_table($table, 'tool_catadmin_managers');
+
+        // Category_admin savepoint reached.
+        upgrade_plugin_savepoint(true, 2019080803, 'tool', 'category_admin');
+    }
+
 
     return true;
 }

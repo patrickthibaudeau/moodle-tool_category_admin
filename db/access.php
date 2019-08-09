@@ -34,4 +34,11 @@ $capabilities = array(
         'archetypes' => array(
         ),
     ),
+    'tool/category_admin:manageplugins' => array(
+        'riskbitmask' => RISK_XSS, RISK_CONFIG,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+        ),
+    ),
 );

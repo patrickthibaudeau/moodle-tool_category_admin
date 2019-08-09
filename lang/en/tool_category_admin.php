@@ -25,5 +25,29 @@
  */
 
 
-$string['manage_categories'] = 'Manage category administration';
+$string['add'] = 'Add';
+$string['back'] = 'Back';
+$string['category'] = 'Category';
+$string['category_managers'] = 'Category managers';
+$string['close'] = 'Close';
+$string['manage_categories'] = 'Manage Categories';
+$string['manage_category_managers'] = 'Manage Category managers';
+$string['manage_plugins'] = 'Manage category plugins';
+$string['manager'] = 'Manager';
+$string['modify'] = 'Modify';
+$string['modules'] = 'Modules';
+$string['modules_help'] = 'Select the modules you would like to disable in this category.';
+$string['modules_saved'] = 'Module settings have been saved.';
+$string['name'] = 'Name';
 $string['pluginname'] = 'Category Administration';
+$string['save'] = 'Save';
+$string['themes'] = 'Themes';
+$string['themes_help'] = 'Select the themes you would like to disable in this category.';
+$string['themes_saved'] = 'Theme settings have been saved.';
+$string['user_name'] = 'User name';
+$string['user_name_help'] = 'Enter a users username';
+
+
+//Capabilities
+$string['category_admin:managecategories'] = 'Manage Categories';
+$string['category_admin:manageplugins'] = 'Manage plugins';

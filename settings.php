@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,11 +26,22 @@
  */
 defined('MOODLE_INTERNAL') || die;
 
-// Manage rules page.
+$context = context_system::instance();
+// Manage category administrators.
 $temp = new admin_externalpage(
-    'toolcategoryadmin',
-    get_string('manage_categories', 'tool_category_admin'),
-    new moodle_url('/admin/tool/category_admin/managecategories.php', array('courseid' => 0)),
-    'tool/category_admin:managecategories'
+        'toolcategoryadmin',
+        get_string('manage_category_managers', 'tool_category_admin'),
+        new moodle_url('/admin/tool/category_admin/managers.php', array('courseid' => 0)),
+        'tool/category_admin:managecategories'
 );
 $ADMIN->add('courses', $temp);
+
+if (has_capability('tool/category_admin:manageplugins', $context)) {
+    $temp = new admin_externalpage(
+            'toolcategoryadminplugins',
+            get_string('manage_plugins', 'tool_category_admin'),
+            new moodle_url('/admin/tool/category_admin/categories.php', array('courseid' => 0)),
+            'tool/category_admin:manageplugins'
+    );
+    $ADMIN->add('courses', $temp);
+}

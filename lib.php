@@ -34,7 +34,18 @@ defined('MOODLE_INTERNAL') || die;
 function tool_category_admin_extend_navigation_course($navigation, $course, $context) {
     if (has_capability('tool/category_admin:managecategories', $context)) {
         $url = new moodle_url('/admin/tool/category_admin/managecategories.php', array('courseid' => $course->id));
-        $settingsnode = navigation_node::create(get_string('managategories', 'tool_category_admin'), $url, navigation_node::TYPE_SETTING,
+        $settingsnode = navigation_node::create(get_string('manage_categories', 'tool_category_admin'), $url, navigation_node::TYPE_SETTING,
+                null, null, new pix_icon('i/settings', ''));
+        $reportnode = $navigation->get('courses');
+
+        if (isset($settingsnode) && !empty($reportnode)) {
+            $reportnode->add_node($settingsnode);
+        }
+    }
+    
+    if (has_capability('tool/category_admin:manageplugins', $context)) {
+        $url = new moodle_url('/admin/tool/category_admin/manageplugins.php', array('courseid' => $course->id));
+        $settingsnode = navigation_node::create(get_string('manage_plugins', 'tool_category_admin'), $url, navigation_node::TYPE_SETTING,
                 null, null, new pix_icon('i/settings', ''));
         $reportnode = $navigation->get('courses');
 

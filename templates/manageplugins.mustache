@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    {{#str}}modules, tool_category_admin{{/str}}
+                </div>
+                <div class="card-body">
+                    <form id="toolCategoryAdminModules">
+                        <input type="hidden" name="categoryid" value="{{{categoryid}}}">
+                        <input type="hidden" name="plugintype" value="mod">
+                        <div class="form-group">
+                            <label for="mods">{{#str}}modules_help, tool_category_admin{{/str}}</label>
+                            <select id="mods" class="form-control"  name="modules[]" multiple="">
+                                {{#modules}}
+                                <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
+                               {{/modules}}
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveModules">{{#str}}save, tool_category_admin{{/str}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    {{#str}}themes, tool_category_admin{{/str}}
+                </div>
+                <div class="card-body">
+                    <form id="toolCategoryAdminThemes">
+                        <input type="hidden" name="categoryid" value="{{{categoryid}}}">
+                        <input type="hidden" name="plugintype" value="theme">
+                        <div class="form-group">
+                            <label for="mods">{{#str}}themes_help, tool_category_admin{{/str}}</label>
+                            <select id="themes" class="form-control"  name="themes[]" multiple="">
+                                {{#themes}}
+                                <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
+                               {{/themes}}
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveThemes">{{#str}}save, tool_category_admin{{/str}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <a href="{{{wwwroot}}}/admin/tool/category_admin/categories.php" class="btn btn-outline-primary">{{#str}}back, tool_category_admin{{/str}}</a>
+        </div>
+    </div>
+</div>
+{{#js}}
+require(['tool_category_admin/manageplugins'], function(mod) {
+mod.init();
+});
+{{/js}}
