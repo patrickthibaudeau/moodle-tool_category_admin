@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -38,25 +39,39 @@ class edit_manager_form extends moodleform {
         global $CFG, $USER, $DB;
         $formdata = $this->_customdata['formdata'];
         $mform = & $this->_form;
-        
+
         $context = CONTEXT_SYSTEM::instance();
-        
+
         $categories = core_course_category::make_categories_list();
 
-        
+
 //-------------------------------------------------------------------------------
 // Adding the "general" fieldset, where all the common settings are showed
         $mform->addElement('header', 'general', get_string('general'));
         $mform->addElement("hidden", "id");
         $mform->setType("id", PARAM_INT);
-        $mform->addElement("hidden", "userid", $USER->id);
-        $mform->setType("userid", PARAM_INT);
         $mform->addElement('select', 'categoryid', get_string('category', 'tool_category_admin'), $categories);
         $mform->setType('username', PARAM_INT);
-        $mform->addElement('text', 'username', get_string('user_name', 'tool_category_admin'), []);
-        $mform->setType('username', PARAM_TEXT);
+//Instead of reinventing the wheel, use a user selector form existing plugin
+        $options = [
+            'ajax' => 'tool_dataprivacy/form-user-selector',
+            'valuehtmlcallback' => function($value) {
+                global $OUTPUT;
 
-        
+                $allusernames = get_all_user_name_fields(true);
+                $fields = 'id, email, ' . $allusernames;
+                $user = \core_user::get_user($value, $fields);
+                $useroptiondata = [
+                    'fullname' => fullname($user),
+                    'email' => $user->email
+                ];
+                return $OUTPUT->render_from_template('tool_dataprivacy/form-user-selector-suggestion', $useroptiondata);
+            }
+        ];
+        $mform->addElement('autocomplete', 'userid', get_string('requestfor', 'tool_dataprivacy'), [], $options);
+        $mform->addRule('userid', null, 'required', null, 'client');
+
+
 //-------------------------------------------------------------------------------
 // add standard buttons, common to all modules
         $this->add_action_buttons();
@@ -66,4 +81,3 @@ class edit_manager_form extends moodleform {
     }
 
 }
-

@@ -29,8 +29,6 @@ function display_page() {
 
     if ($id) {
         $formdata = $DB->get_record('tool_catadmin_managers', array('id' => $id), '*', MUST_EXIST);
-        $user = core_user::get_user($formdata->userid);
-        $formdata->username = $user->username;
     } else {
         $formdata = new stdClass();
     }
@@ -41,9 +39,6 @@ function display_page() {
     if ($mform->is_cancelled()) {
         redirect($CFG->wwwroot . '/admin/tool/category_admin/managers.php');
     } else if ($data = $mform->get_data()) {
-        //Get user id
-        $user = $DB->get_record('user', ['username' => $data->username]);
-        $data->userid = $user->id;
         unset($data->username);
         $data->timemodifed = time();
         if ($data->id) {

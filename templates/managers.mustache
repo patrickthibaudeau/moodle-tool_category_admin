@@ -15,6 +15,9 @@
                         <th>
                             {{#str}}category, tool_category_admin{{/str}}
                         </th>
+                        <th>
+                            
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +29,14 @@
                         <td>
                             {{{category}}}
                         </td>
+                        <td>
+                            <a href="javascript:void(0);" 
+                               class="btn btn-outline-dangerous btnDeleteUser" 
+                               data-id="{{{id}}}" 
+                               title="{{#str}}delete, tool_category_admin{{/str}}">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
                     </tr>
                     
                     {{/managers}}
@@ -34,3 +45,8 @@
         </div>
     </div>
 </div>
+{{#js}}
+require(['tool_category_admin/managers'], function(mod) {
+mod.init();
+});
+{{/js}}

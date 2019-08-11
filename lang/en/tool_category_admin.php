@@ -27,9 +27,12 @@
 
 $string['add'] = 'Add';
 $string['back'] = 'Back';
+$string['cancel'] = 'Cancel';
 $string['category'] = 'Category';
 $string['category_managers'] = 'Category managers';
 $string['close'] = 'Close';
+$string['delete'] = 'Delete';
+$string['delete_manager'] = 'Are you sure you want to delete this manager?';
 $string['manage_categories'] = 'Manage Categories';
 $string['manage_category_managers'] = 'Manage Category managers';
 $string['manage_plugins'] = 'Manage category plugins';
