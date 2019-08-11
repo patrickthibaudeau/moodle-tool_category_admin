@@ -39,7 +39,7 @@ define(['jquery',
                             notification.alert(
                                     M.util.get_string('modules', 'tool_category_admin'),
                                     M.util.get_string('modules_saved', 'tool_category_admin'),
-                                    M.util.get_string('close', 'tool_category_admin'),
+                                    M.util.get_string('close', 'tool_category_admin')
                                     );
                         },
                         error: function (err) {
@@ -64,7 +64,7 @@ define(['jquery',
                             notification.alert(
                                     M.util.get_string('themes', 'tool_category_admin'),
                                     M.util.get_string('themes_saved', 'tool_category_admin'),
-                                    M.util.get_string('close', 'tool_category_admin'),
+                                    M.util.get_string('close', 'tool_category_admin')
                                     );
                         },
                         error: function (err) {

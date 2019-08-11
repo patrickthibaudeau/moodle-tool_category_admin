@@ -1,0 +1,13 @@
+{{!
+    This is not an actual header mustache file
+    It is used only to indicate that the input element and
+    javascript call has to be placed inside the header file in your theme
+}}
+<!--Added so that themes can be removed from list-->
+<input type="hidden" id="blocked_themes" value="{{{output.get_blocked_themes}}}">
+
+{{#js}}
+require(['theme_YOURTHEMENAME/blocked_themes'], function(mod) {
+mod.init();
+});
+{{/js}}
