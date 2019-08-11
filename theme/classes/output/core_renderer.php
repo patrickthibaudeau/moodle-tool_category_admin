@@ -32,32 +32,35 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     public function get_blocked_themes() {
         global $COURSE, $DB;
-
+        $blockedThemes = '';
         //We have to iterate through all categories because this could be a sub category
         $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
-        //Convert path into array, remove empty values and reverse
-        $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
-        //Find themes that must be removed.
-        //First category to have plugins blocked overrides parent category
-        foreach ($categoryPath as $key => $categoryId) {
-            $params = [
-                'categoryid' => $categoryId,
-                'plugintype' => 'theme'
-            ];
+        if ($category) {
+            //Convert path into array, remove empty values and reverse
+            $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
+            //Find themes that must be removed.
+            //First category to have plugins blocked overrides parent category
+            foreach ($categoryPath as $key => $categoryId) {
+                $params = [
+                    'categoryid' => $categoryId,
+                    'plugintype' => 'theme'
+                ];
 
-            if ($blockedThemes = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
-                break;
+                if ($blockedThemes = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
+                    break;
+                }
             }
-        }
-        //Get blocked themes
-        $themes = '';
-        if ($blockedThemes) {
-            foreach ($blockedThemes as $bt) {
-                $themes .= trim($bt->pluginname) . ',';
+            //Get blocked themes
+            $themes = '';
+            if ($blockedThemes) {
+                foreach ($blockedThemes as $bt) {
+                    $themes .= trim($bt->pluginname) . ',';
+                }
             }
-        }
 
-        return rtrim($themes, ',');
+
+            return rtrim($themes, ',');
+        }
     }
 
 }
