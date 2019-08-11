@@ -2,7 +2,13 @@
 
 The category manager will allow you to add users who can manage category module plugins and themes. Category managers will be able to select Modules and themes to disable.
 
-To make the category manager work, you must make modifications within your theme. 
+To make the category manager work, you must make modifications within your theme.
+
+## Installation ##
+
+Unzip this into tool into the *moodle\_root*\\admin\\tool\\ folder.
+
+Upgrade Moodle.
 
 ## Theme modifications ##
 You will find inside the category_admin folder a theme folder. The folder structure is similar to that of a theme to make it easier for you to understand where files are supposed to go within your theme. Follow these instructions to the letter to avoid errors.
