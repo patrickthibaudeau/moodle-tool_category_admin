@@ -38,7 +38,6 @@ class categories implements \renderable, \templatable {
             'wwwroot' => $CFG->wwwroot,
             'categories' => $this->getCategories()
         ];
-
         return $data;
     }
 
@@ -48,22 +47,26 @@ class categories implements \renderable, \templatable {
         $params = [];
         $params['userid'] = $this->userId;
 
-        if (is_siteadmin($USER->id)) {
-            unset($params['userid']);
-        }
-
-        $managedCategories = $DB->get_records('tool_catadmin_managers', $params);
-
         $data = [];
         $i = 0;
-        foreach ($managedCategories as $mc) {
-            $category = $categories[$mc->categoryid];
-            $data[$i]['category'] = $category;
-            $data[$i]['categoryid'] = $mc->categoryid;
-            $data[$i]['id'] = $mc->id;
-            $i++;
+        if (is_siteadmin($USER->id)) {
+            $managedCategories = $DB->get_records('course_categories', []);
+            foreach ($managedCategories as $mc) {
+                $category = $categories[$mc->id];
+                $data[$i]['category'] = $category;
+                $data[$i]['categoryid'] = $mc->id;
+                $i++;
+            }
+        } else {
+            $managedCategories = $DB->get_records('tool_catadmin_managers', $params);
+            foreach ($managedCategories as $mc) {
+                $category = $categories[$mc->categoryid];
+                $data[$i]['category'] = $category;
+                $data[$i]['categoryid'] = $mc->categoryid;
+                $data[$i]['id'] = $mc->id;
+                $i++;
+            }
         }
-
         return $data;
     }
 
