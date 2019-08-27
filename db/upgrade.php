@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 function xmldb_tool_category_admin_upgrade($oldversion) {
     global $CFG, $DB;
-    
+
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2019080803) {
@@ -47,6 +47,46 @@ function xmldb_tool_category_admin_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2019080803, 'tool', 'category_admin');
     }
 
+    if ($oldversion < 2019082601) {
+
+        // Define table tool_catadmin_defaultplugin to be created.
+        $table = new xmldb_table('tool_catadmin_defaultplugin');
+
+        // Adding fields to table tool_catadmin_defaultplugin.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0');
+        $table->add_field('categoryid', XMLDB_TYPE_INTEGER, '10', null, null, null, '0');
+        $table->add_field('plugintype', XMLDB_TYPE_CHAR, '50', null, null, null, null);
+        $table->add_field('pluginname', XMLDB_TYPE_CHAR, '100', null, null, null, null);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '20', null, null, null, '0');
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '20', null, null, null, '0');
+
+        // Adding keys to table tool_catadmin_defaultplugin.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+
+        // Conditionally launch create table for tool_catadmin_defaultplugin.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Category_admin savepoint reached.
+        upgrade_plugin_savepoint(true, 2019082601, 'tool', 'category_admin');
+    }
+    
+    if ($oldversion < 2019082602) {
+
+        // Define field categoryid to be dropped from tool_catadmin_defaultplugin.
+        $table = new xmldb_table('tool_catadmin_defaultplugin');
+        $field = new xmldb_field('categoryid');
+
+        // Conditionally launch drop field categoryid.
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        // Category_admin savepoint reached.
+        upgrade_plugin_savepoint(true, 2019082602, 'tool', 'category_admin');
+    }
 
     return true;
 }

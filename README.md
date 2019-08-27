@@ -10,6 +10,17 @@ Unzip this into tool into the *moodle\_root*\\admin\\tool\\ folder.
 
 Upgrade Moodle.
 
+
+## Create role ##
+Before you start using the tool, you must create the following role.
+
+Short name: pluginmanager
+Custom full name: Category administration plugin manager
+> Note: The custom full name can be what ever suits your need.
+
+Capability: Manage plugins: tool/category_admin:manageplugins
+
+
 ## Theme modifications ##
 You will find inside the category_admin folder a theme folder. The folder structure is similar to that of a theme to make it easier for you to understand where files are supposed to go within your theme. Follow these instructions to the letter to avoid errors.
 

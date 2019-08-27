@@ -23,5 +23,10 @@ class renderer extends \plugin_renderer_base {
         return $this->render_from_template('tool_category_admin/manageplugins', $data);
     }
     
+    public function render_defaultplugins(\templatable $defaultplugins) {
+        $data = $defaultplugins->export_for_template($this);
+        return $this->render_from_template('tool_category_admin/defaultplugins', $data);
+    }
+    
 }
 
