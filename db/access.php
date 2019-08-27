@@ -32,6 +32,7 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
+            'manager' => CAP_ALLOW
         ),
     ),
     'tool/category_admin:manageplugins' => array(

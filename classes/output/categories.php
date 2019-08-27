@@ -46,10 +46,11 @@ class categories implements \renderable, \templatable {
         $categories = \core_course_category::make_categories_list();
         $params = [];
         $params['userid'] = $this->userId;
+        $context = \context_system::instance();
 
         $data = [];
         $i = 0;
-        if (is_siteadmin($USER->id)) {
+        if ((is_siteadmin($USER->id)) || has_capability('tool/category_admin:managecategories', $context)) {
             $managedCategories = $DB->get_records('course_categories', []);
             foreach ($managedCategories as $mc) {
                 $category = $categories[$mc->id];
