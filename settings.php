@@ -36,6 +36,14 @@ $temp = new admin_externalpage(
 );
 $ADMIN->add('courses', $temp);
 
+$temp = new admin_externalpage(
+        'toolcategoryadmindefaultplugins',
+        get_string('set_default_plugins', 'tool_category_admin'),
+        new moodle_url('/admin/tool/category_admin/defaultplugins.php', array('courseid' => 0)),
+        'tool/category_admin:managecategories'
+);
+$ADMIN->add('courses', $temp);
+
 if (has_capability('tool/category_admin:manageplugins', $context)) {
     $temp = new admin_externalpage(
             'toolcategoryadminplugins',

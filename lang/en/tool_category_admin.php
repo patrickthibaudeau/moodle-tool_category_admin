@@ -46,6 +46,7 @@ $string['modules_saved'] = 'Module settings have been saved.';
 $string['name'] = 'Name';
 $string['pluginname'] = 'Category Administration';
 $string['save'] = 'Save';
+$string['set_default_plugins'] = 'Set default disabled plugins (Course category admin)';
 $string['themes'] = 'Themes';
 $string['themes_help'] = 'Select the themes you would like to disable in this category.';
 $string['themes_saved'] = 'Theme settings have been saved.';
