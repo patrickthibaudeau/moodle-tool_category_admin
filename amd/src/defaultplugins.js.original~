@@ -19,11 +19,9 @@ define(['jquery',
             function initManagePlugins() {
                 updateModules();
                 updateThemes();
-                updateBlocks();
                 
                 $('#mods').select2();
                 $('#themes').select2();
-                $('#blocks').select2();
             }
 
             function updateModules() {
@@ -66,31 +64,6 @@ define(['jquery',
                             notification.alert(
                                     M.util.get_string('themes', 'tool_category_admin'),
                                     M.util.get_string('themes_saved', 'tool_category_admin'),
-                                    M.util.get_string('close', 'tool_category_admin')
-                                    );
-                        },
-                        error: function (err) {
-                            console.log(err);
-                        }
-                    });
-                });
-            }
-
-            function updateBlocks() {
-                $("#toolCatAdminSaveBlocks").unbind();
-                $("#toolCatAdminSaveBlocks").on("click", function (e) {
-                    var formData = $('#toolCategoryAdminBlocks').serialize();
-                    console.log(formData);
-                    $.ajax({
-                        method: "POST",
-                        url: mdlcfg.wwwroot +
-                                "/admin/tool/category_admin/ajax/defaultblocks.php",
-                        data: formData,
-                        dataType: "html",
-                        success: function (formHtml) {
-                            notification.alert(
-                                    M.util.get_string('blocks', 'tool_category_admin'),
-                                    M.util.get_string('blocks_saved', 'tool_category_admin'),
                                     M.util.get_string('close', 'tool_category_admin')
                                     );
                         },

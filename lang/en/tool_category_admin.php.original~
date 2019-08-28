@@ -27,9 +27,6 @@
 
 $string['add'] = 'Add';
 $string['back'] = 'Back';
-$string['blocks'] = 'Blocks';
-$string['blocks_help'] = 'Select the blocks you would like to disable for all categories.';
-$string['blocks_saved'] = 'Block settings have been saved.';
 $string['cancel'] = 'Cancel';
 $string['category'] = 'Category';
 $string['category_managers'] = 'Category managers';
@@ -60,4 +57,3 @@ $string['user_name_help'] = 'Enter a users username';
 //Capabilities
 $string['category_admin:managecategories'] = 'Manage Categories';
 $string['category_admin:manageplugins'] = 'Manage plugins';
-$string['category_admin:manageblocks'] = 'Manage blocks';

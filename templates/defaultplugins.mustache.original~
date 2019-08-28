@@ -48,29 +48,11 @@
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+<!--    <div class="row mt-3">
         <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    {{#str}}blocks, tool_category_admin{{/str}}
-                </div>
-                <div class="card-body">
-                    <form id="toolCategoryAdminBlocks">
-                        <input type="hidden" name="plugintype" value="block">
-                        <div class="form-group">
-                            <label for="blocks">{{#str}}blocks_help, tool_category_admin{{/str}}</label>
-                            <select id="blocks" class="form-control"  name="blocks[]" multiple="">
-                                {{#blocks}}
-                                <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
-                                {{/blocks}}
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveBlocks">{{#str}}save, tool_category_admin{{/str}}</button>
-                    </form>
-                </div>
-            </div>
+            <a href="{{{wwwroot}}}/admin/tool/category_admin/categories.php" class="btn btn-outline-primary">{{#str}}back, tool_category_admin{{/str}}</a>
         </div>
-    </div>
+    </div>-->
 </div>
 {{#js}}
 require(['tool_category_admin/defaultplugins'], function(mod) {

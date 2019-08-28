@@ -29,8 +29,7 @@ class defaultplugins implements \renderable, \templatable {
         $data = [
             'wwwroot' => $CFG->wwwroot,
             'modules' => $this->getModules(),
-            'themes' => $this->getThemes(),
-            'blocks' => $this->getBlocks()
+            'themes' => $this->getThemes()
         ];
         return $data;
     }
@@ -100,35 +99,4 @@ class defaultplugins implements \renderable, \templatable {
         return $data;
     }
 
-    private function getBlocks() {
-        global $USER, $DB;
-        //Get system modules
-        $modules = $DB->get_records('block', ['visible' => true]);
-        //Get modules
-        $hiddenModules = $DB->get_records('tool_catadmin_defaultplugin', ['plugintype' => 'block']);
-        $hiddenModulesArray = [];
-        $x = 0;
-        foreach ($hiddenModules as $hm) {
-            $hiddenModulesArray[$x] = $hm->pluginname;
-            $x++;
-        }
-
-
-        $data = [];
-        $i = 0;
-        foreach ($modules as $m) {
-            if (in_array($m->name,$hiddenModulesArray)) {
-                $selected = 'selected=""';
-            } else {
-                $selected = '';
-            }
-            $data[$i]['shortname'] = $m->name;
-            $data[$i]['name'] = get_string('pluginname', 'block_'.$m->name);
-            $data[$i]['selected'] = $selected;
-            $data[$i]['id'] = $m->id;
-            $i++;
-        }
-
-        return $data;
-    }
 }
