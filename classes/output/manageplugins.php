@@ -39,7 +39,9 @@ class manageplugins implements \renderable, \templatable {
             'categoryid' => $this->categoryId,
             'categoryname' => $categories[$this->categoryId],
             'modules' => $this->getModules(),
-            'themes' => $this->getThemes()
+            'themes' => $this->getThemes(),
+            'blocks' => $this->getBlocks(),
+            'formats' => $this->getFormats()
         ];
         return $data;
     }
@@ -103,6 +105,73 @@ class manageplugins implements \renderable, \templatable {
             }
             $data[$i]['shortname'] = $name;
             $data[$i]['name'] = get_string('pluginname', $t->plugin);
+            $data[$i]['categoryid'] = $this->categoryId;
+            $data[$i]['selected'] = $selected;
+            $i++;
+        }
+
+        return $data;
+    }
+    
+    private function getBlocks() {
+        global $USER, $DB;
+        //Get system modules
+        $modules = $DB->get_records('block', ['visible' => true]);
+        //Get modules
+        $hiddenModules = $DB->get_records('tool_catadmin_categoryplugin', ['categoryid' => $this->categoryId, 'plugintype' => 'block']);
+        $hiddenModulesArray = [];
+        $x = 0;
+        foreach ($hiddenModules as $hm) {
+            $hiddenModulesArray[$x] = $hm->pluginname;
+            $x++;
+        }
+
+
+        $data = [];
+        $i = 0;
+        foreach ($modules as $m) {
+            if (in_array($m->name,$hiddenModulesArray)) {
+                $selected = 'selected=""';
+            } else {
+                $selected = '';
+            }
+            $data[$i]['shortname'] = $m->name;
+            $data[$i]['name'] = get_string('pluginname', 'block_'.$m->name);
+            $data[$i]['selected'] = $selected;
+            $data[$i]['categoryid'] = $this->categoryId;
+            $data[$i]['id'] = $m->id;
+            $i++;
+        }
+
+        return $data;
+    }
+
+    private function getFormats() {
+        global $USER, $DB;
+        //Get system modules
+        $sql = "SELECT DISTINCT (plugin) FROM {config_plugins} WHERE plugin LIKE 'format_%'";
+        $formats = $DB->get_records_sql($sql);
+        //Get formats
+        $hiddenFormats = $DB->get_records('tool_catadmin_categoryplugin', ['categoryid' => $this->categoryId, 'plugintype' => 'format']);
+        $hiddenFormatsArray = [];
+        $x = 0;
+        foreach ($hiddenFormats as $hf) {
+            $hiddenFormatsArray[$x] = $hf->pluginname;
+            $x++;
+        }
+
+        $data = [];
+        $i = 0;
+        foreach ($formats as $f) {
+
+            if (in_array(trim($f->plugin),$hiddenFormatsArray)) {
+                $selected = 'selected=""';
+            } else {
+                $selected = '';
+            }
+
+            $data[$i]['shortname'] = $f->plugin;
+            $data[$i]['name'] = get_string('pluginname', $f->plugin);
             $data[$i]['categoryid'] = $this->categoryId;
             $data[$i]['selected'] = $selected;
             $i++;

@@ -14,7 +14,7 @@
                             <select id="mods" class="form-control"  name="modules[]" multiple="">
                                 {{#modules}}
                                 <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
-                               {{/modules}}
+                                {{/modules}}
                             </select>
                         </div>
                         <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveModules">{{#str}}save, tool_category_admin{{/str}}</button>
@@ -36,10 +36,56 @@
                             <select id="themes" class="form-control"  name="themes[]" multiple="">
                                 {{#themes}}
                                 <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
-                               {{/themes}}
+                                {{/themes}}
                             </select>
                         </div>
                         <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveThemes">{{#str}}save, tool_category_admin{{/str}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    {{#str}}blocks, tool_category_admin{{/str}}
+                </div>
+                <div class="card-body">
+                    <form id="toolCategoryAdminBlocks">
+                        <input type="hidden" name="categoryid" value="{{{categoryid}}}">
+                        <input type="hidden" name="plugintype" value="block">
+                        <div class="form-group">
+                            <label for="blocks">{{#str}}blocks_help, tool_category_admin{{/str}}</label>
+                            <select id="blocks" class="form-control"  name="blocks[]" multiple="">
+                                {{#blocks}}
+                                <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
+                                {{/blocks}}
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveBlocks">{{#str}}save, tool_category_admin{{/str}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    {{#str}}course_format, tool_category_admin{{/str}}
+                </div>
+                <div class="card-body">
+                    <form id="toolCategoryAdminCourseFormat">
+                        <input type="hidden" name="categoryid" value="{{{categoryid}}}">
+                        <input type="hidden" name="plugintype" value="format">
+                        <div class="form-group">
+                            <label for="courseFormat">{{#str}}course_format_help, tool_category_admin{{/str}}</label>
+                            <select id="courseFormat" class="form-control"  name="course_formats[]" multiple="">
+                                {{#formats}}
+                                <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
+                                {{/formats}}
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveCourseFormat">{{#str}}save, tool_category_admin{{/str}}</button>
                     </form>
                 </div>
             </div>

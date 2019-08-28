@@ -35,6 +35,7 @@ $string['category'] = 'Category';
 $string['category_managers'] = 'Category managers';
 $string['course_format'] = 'Course format';
 $string['course_format_help'] = 'Select the course format you would like to disable for all categories.';
+$string['course_format_saved'] = 'Course format settings have been saved.';
 $string['close'] = 'Close';
 $string['default_plugins'] = 'Default disabled plugins';
 $string['default_plugins_help'] = 'Select the modules and themes you would like to disable for all categories.';

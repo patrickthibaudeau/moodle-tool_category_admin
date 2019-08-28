@@ -19,9 +19,13 @@ define(['jquery',
             function initManagePlugins() {
                 updateModules();
                 updateThemes();
-                
+                updateBlocks();
+                updateFormats();
+
                 $('#mods').select2();
                 $('#themes').select2();
+                $('#blocks').select2();
+                $('#courseFormat').select2();
             }
 
             function updateModules() {
@@ -74,6 +78,61 @@ define(['jquery',
                 });
             }
 
+            function updateBlocks() {
+                $("#toolCatAdminSaveBlocks").unbind();
+                $("#toolCatAdminSaveBlocks").on("click", function (e) {
+                    var formData = $('#toolCategoryAdminBlocks').serialize();
+                    console.log(formData);
+                    $.ajax({
+                        method: "POST",
+                        url: mdlcfg.wwwroot +
+                                "/admin/tool/category_admin/ajax/blocks.php",
+                        data: formData,
+                        dataType: "html",
+                        success: function (formHtml) {
+                            notification.alert(
+                                    M.util.get_string('blocks', 'tool_category_admin'),
+                                    M.util.get_string('blocks_saved', 'tool_category_admin'),
+                                    M.util.get_string('close', 'tool_category_admin')
+                                    );
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                });
+            }
+
+            return {
+                init: function () {
+                    initManagePlugins();
+                }
+            };
+
+            function updateFormats() {
+                $("#toolCatAdminSaveCourseFormat").unbind();
+                $("#toolCatAdminSaveCourseFormat").on("click", function (e) {
+                    var formData = $('#toolCategoryAdminCourseFormat').serialize();
+                    console.log(formData);
+                    $.ajax({
+                        method: "POST",
+                        url: mdlcfg.wwwroot +
+                                "/admin/tool/category_admin/ajax/formats.php",
+                        data: formData,
+                        dataType: "html",
+                        success: function (formHtml) {
+                            notification.alert(
+                                    M.util.get_string('course_format', 'tool_category_admin'),
+                                    M.util.get_string('course_format_saved', 'tool_category_admin'),
+                                    M.util.get_string('close', 'tool_category_admin')
+                                    );
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                });
+            }
             return {
                 init: function () {
                     initManagePlugins();
