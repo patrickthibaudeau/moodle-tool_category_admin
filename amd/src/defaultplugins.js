@@ -20,10 +20,12 @@ define(['jquery',
                 updateModules();
                 updateThemes();
                 updateBlocks();
-                
+                updateFormat();
+
                 $('#mods').select2();
                 $('#themes').select2();
                 $('#blocks').select2();
+                $('#courseFormat').select2();
             }
 
             function updateModules() {
@@ -106,4 +108,36 @@ define(['jquery',
                     initManagePlugins();
                 }
             };
+
+            function updateFormat() {
+                $("#toolCatAdminSaveCourseFormat").unbind();
+                $("#toolCatAdminSaveCourseFormat").on("click", function (e) {
+                    var formData = $('#toolCategoryAdminCourseFormat').serialize();
+                    console.log(formData);
+                    $.ajax({
+                        method: "POST",
+                        url: mdlcfg.wwwroot +
+                                "/admin/tool/category_admin/ajax/defaultformat.php",
+                        data: formData,
+                        dataType: "html",
+                        success: function (formHtml) {
+                            notification.alert(
+                                    M.util.get_string('course_format', 'tool_category_admin'),
+                                    M.util.get_string('course_format_saved', 'tool_category_admin'),
+                                    M.util.get_string('close', 'tool_category_admin')
+                                    );
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                });
+            }
+
+            return {
+                init: function () {
+                    initManagePlugins();
+                }
+            };
+            
         });

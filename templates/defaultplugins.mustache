@@ -70,6 +70,27 @@
                 </div>
             </div>
         </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    {{#str}}course_format, tool_category_admin{{/str}}
+                </div>
+                <div class="card-body">
+                    <form id="toolCategoryAdminCourseFormat">
+                        <input type="hidden" name="plugintype" value="format">
+                        <div class="form-group">
+                            <label for="courseFormat">{{#str}}course_format_help, tool_category_admin{{/str}}</label>
+                            <select id="courseFormat" class="form-control"  name="course_formats[]" multiple="">
+                                {{#formats}}
+                                <option value="{{{shortname}}}"  {{{selected}}}>{{{name}}}</option>
+                                {{/formats}}
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" id="toolCatAdminSaveCourseFormat">{{#str}}save, tool_category_admin{{/str}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {{#js}}

@@ -30,7 +30,8 @@ class defaultplugins implements \renderable, \templatable {
             'wwwroot' => $CFG->wwwroot,
             'modules' => $this->getModules(),
             'themes' => $this->getThemes(),
-            'blocks' => $this->getBlocks()
+            'blocks' => $this->getBlocks(),
+            'formats' => $this->getFormats()
         ];
         return $data;
     }
@@ -126,6 +127,39 @@ class defaultplugins implements \renderable, \templatable {
             $data[$i]['name'] = get_string('pluginname', 'block_'.$m->name);
             $data[$i]['selected'] = $selected;
             $data[$i]['id'] = $m->id;
+            $i++;
+        }
+
+        return $data;
+    }
+
+    private function getFormats() {
+        global $USER, $DB;
+        //Get system modules
+        $sql = "SELECT DISTINCT (plugin) FROM {config_plugins} WHERE plugin LIKE 'format_%'";
+        $formats = $DB->get_records_sql($sql);
+        //Get formats
+        $hiddenFormats = $DB->get_records('tool_catadmin_defaultplugin', ['plugintype' => 'format']);
+        $hiddenFormatsArray = [];
+        $x = 0;
+        foreach ($hiddenFormats as $hf) {
+            $hiddenFormatsArray[$x] = $hf->pluginname;
+            $x++;
+        }
+
+        $data = [];
+        $i = 0;
+        foreach ($formats as $f) {
+
+            if (in_array(trim($f->plugin),$hiddenFormatsArray)) {
+                $selected = 'selected=""';
+            } else {
+                $selected = '';
+            }
+
+            $data[$i]['shortname'] = $f->plugin;
+            $data[$i]['name'] = get_string('pluginname', $f->plugin);
+            $data[$i]['selected'] = $selected;
             $i++;
         }
 
