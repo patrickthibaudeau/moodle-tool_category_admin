@@ -1,0 +1,9 @@
+
+<input type="hidden" id="blocked_themes" value="{{{output.get_blocked_themes}}}">
+<input type="hidden" id="blocked_formats" value="{{{output.get_blocked_formats}}}">
+<input type="hidden" id="blocked_blocks" value="{{{output.get_blocked_blocks}}}">
+{{#js}}
+require(['theme_boost_plus/blocked_themes'], function(mod) {
+mod.init();
+});
+{{/js}}

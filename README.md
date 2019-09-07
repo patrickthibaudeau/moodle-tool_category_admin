@@ -60,39 +60,107 @@ If you don't have the file, create the folder classes/output/core, if it does no
 **Mod chooser files**
 Copy the modchooser.php and modchooser\_item.php files into the classes\output folder. Open the two files and replace YOURTHEMENAME by your theme name. DO NOT MAKE ANY OTHER MODIFICATIONS
 
-**core\_rendere.php**
+**core\_renderer.php**
 Check to see if you have a core\_renderer.php file wihtin your theme. IT will be in the classes\output folder.
 
 If you do, open the file and copy the following code.
 
-        public function get_blocked_themes() {
+        
+    public function get_blocked_themes() {
         global $COURSE, $DB;
-
+        $blockedThemes = '';
         //We have to iterate through all categories because this could be a sub category
         $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
-        //Convert path into array, remove empty values and reverse
-        $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
-        //Find themes that must be removed.
-        //First category to have plugins blocked overrides parent category
-        foreach ($categoryPath as $key => $categoryId) {
-            $params = [
-                'categoryid' => $categoryId,
-                'plugintype' => 'theme'
-            ];
+        if ($category) {
+            //Convert path into array, remove empty values and reverse
+            $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
+            //Find themes that must be removed.
+            //First category to have plugins blocked overrides parent category
+            foreach ($categoryPath as $key => $categoryId) {
+                $params = [
+                    'categoryid' => $categoryId,
+                    'plugintype' => 'theme'
+                ];
 
-            if ($blockedThemes = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
-                break;
+                if ($blockedThemes = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
+                    break;
+                }
             }
-        }
-        //Get blocked themes
-        $themes = '';
-        if ($blockedThemes) {
-            foreach ($blockedThemes as $bt) {
-                $themes .= trim($bt->pluginname) . ',';
+            //Get blocked themes
+            $themes = '';
+            if ($blockedThemes) {
+                foreach ($blockedThemes as $bt) {
+                    $themes .= trim($bt->pluginname) . ',';
+                }
             }
-        }
 
-        return rtrim($themes, ',');
+
+            return rtrim($themes, ',');
+        }
+    }
+
+    public function get_blocked_formats() {
+        global $COURSE, $DB;
+        $blockedThemes = '';
+        //We have to iterate through all categories because this could be a sub category
+        $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
+        if ($category) {
+            //Convert path into array, remove empty values and reverse
+            $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
+            //Find themes that must be removed.
+            //First category to have plugins blocked overrides parent category
+            foreach ($categoryPath as $key => $categoryId) {
+                $params = [
+                    'categoryid' => $categoryId,
+                    'plugintype' => 'format'
+                ];
+
+                if ($blockedFormats = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
+                    break;
+                }
+            }
+            //Get blocked themes
+            $formats = '';
+            if ($blockedFormats) {
+                foreach ($blockedFormats as $bf) {
+                    $formats .= trim(str_replace('format_', '', $bt->pluginname)) . ',';
+                }
+            }
+
+            return rtrim($formats, ',');
+        }
+    }
+
+    public function get_blocked_blocks() {
+        global $COURSE, $DB;
+        $blockedThemes = '';
+        //We have to iterate through all categories because this could be a sub category
+        $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
+        if ($category) {
+            //Convert path into array, remove empty values and reverse
+            $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
+            //Find themes that must be removed.
+            //First category to have plugins blocked overrides parent category
+            foreach ($categoryPath as $key => $categoryId) {
+                $params = [
+                    'categoryid' => $categoryId,
+                    'plugintype' => 'block'
+                ];
+
+                if ($blockedFormats = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
+                    break;
+                }
+            }
+            //Get blocked themes
+            $formats = '';
+            if ($blockedFormats) {
+                foreach ($blockedFormats as $bf) {
+                    $formats .= trim(str_replace('block_', '', $bf->pluginname)) . ',';
+                }
+            }
+
+            return rtrim($formats, ',');
+        }
     }
 
 If you do not have that file, copy it and remember to replace YOURTHEMENAME by your theme name.
@@ -102,29 +170,25 @@ If you do not have that file, copy it and remember to replace YOURTHEMENAME by y
 
 Create the folder templates/core in your theme if it doesn't already exists.
 
-Copy chooser.mustache into this new folder
+Copy chooser.mustache and add_block_content.mustache into this new folder
 
-Make no modifications to the file.
+In the root template folder copy category_admin.mustache
 
-## Removing themes ##
+Make no modifications to the files.
 
-In order to remove themes from the drop down list available in course settings, the following must be done.You only need to do this if you allow users to change the themes at course levels.
+## AMD Javascript files ##
 
 Make sure your theme has the amd folder with both the src and build folders within it. If it doesn't, create an amd folder in your theme.
 
-Once you have those folders, copy the blocked\_themes.js and blocked\_themes.min.js into their appropriate folders.
+Once you have those folders, copy the blocked\_themes.js, remove\_blocks.js and blocked\_themes.min.js, remove\_blocks.min.js into their appropriate folders.
 
-**header.mustache**
+## category_admin.mustache ##
 
-You will need to modify the header.mustache file. Open the header.mustache found in this theme folder and copy the following code and paste it at the end of your header.mustache file.
+You will need to add the category_admin.mustache to your course mustache file. That is usually the columns2.mustache file.Open your course file (columns2.mustache) in your theme/templates folder and copy the following code at the end of the file before the </body> tag.
 
-    <input type="hidden" id="blocked_themes" value="{{{output.get_blocked_themes}}}">
+    {{> theme_YOURTHEMENAME/category_admin }}
 
-{{#js}}
-require(['theme_YOURTHEMENAME/blocked_themes'], function(mod) {
-mod.init();
-});
-{{/js}}
+Remember to rename YOURTHEMENAME to your theme name.
 
 ## End ##
 Update your theme version so that these changes can be loaded. open the version.php file and modify the $plugin->version value. 

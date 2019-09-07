@@ -62,7 +62,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return rtrim($themes, ',');
         }
     }
-    
+
     public function get_blocked_formats() {
         global $COURSE, $DB;
         $blockedThemes = '';
@@ -88,6 +88,38 @@ class core_renderer extends \theme_boost\output\core_renderer {
             if ($blockedFormats) {
                 foreach ($blockedFormats as $bf) {
                     $formats .= trim(str_replace('format_', '', $bt->pluginname)) . ',';
+                }
+            }
+
+            return rtrim($formats, ',');
+        }
+    }
+
+    public function get_blocked_blocks() {
+        global $COURSE, $DB;
+        $blockedThemes = '';
+        //We have to iterate through all categories because this could be a sub category
+        $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
+        if ($category) {
+            //Convert path into array, remove empty values and reverse
+            $categoryPath = array_reverse(array_filter(explode('/', $category->path)));
+            //Find themes that must be removed.
+            //First category to have plugins blocked overrides parent category
+            foreach ($categoryPath as $key => $categoryId) {
+                $params = [
+                    'categoryid' => $categoryId,
+                    'plugintype' => 'block'
+                ];
+
+                if ($blockedFormats = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
+                    break;
+                }
+            }
+            //Get blocked themes
+            $formats = '';
+            if ($blockedFormats) {
+                foreach ($blockedFormats as $bf) {
+                    $formats .= trim(str_replace('block_', '', $bf->pluginname)) . ',';
                 }
             }
 
