@@ -87,7 +87,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $formats = '';
             if ($blockedFormats) {
                 foreach ($blockedFormats as $bf) {
-                    $formats .= trim(str_replace('format_', '', $bt->pluginname)) . ',';
+                    $formats .= trim(str_replace('format_', '', $bf->pluginname)) . ',';
                 }
             }
 
