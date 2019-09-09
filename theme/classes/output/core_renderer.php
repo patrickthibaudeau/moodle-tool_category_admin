@@ -65,7 +65,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     public function get_blocked_formats() {
         global $COURSE, $DB;
-        $blockedThemes = '';
+        $blockedFormats = '';
         //We have to iterate through all categories because this could be a sub category
         $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
         if ($category) {
@@ -97,7 +97,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     public function get_blocked_blocks() {
         global $COURSE, $DB;
-        $blockedThemes = '';
+        $blockedBlocks = '';
         //We have to iterate through all categories because this could be a sub category
         $category = $DB->get_record('course_categories', ['id' => $COURSE->category]);
         if ($category) {
@@ -111,19 +111,19 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     'plugintype' => 'block'
                 ];
 
-                if ($blockedFormats = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
+                if ($blockedBlocks = $DB->get_records('tool_catadmin_categoryplugin', $params)) {
                     break;
                 }
             }
             //Get blocked themes
-            $formats = '';
-            if ($blockedFormats) {
-                foreach ($blockedFormats as $bf) {
-                    $formats .= trim(str_replace('block_', '', $bf->pluginname)) . ',';
+            $blocks = '';
+            if ($blockedBlocks) {
+                foreach ($blockedBlocks as $bb) {
+                    $blocks .= trim(str_replace('block_', '', $bb->pluginname)) . ',';
                 }
             }
 
-            return rtrim($formats, ',');
+            return rtrim($blocks, ',');
         }
     }
 
