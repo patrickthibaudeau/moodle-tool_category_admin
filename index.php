@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,10 +22,9 @@
  * @copyright  2014 onwards Ankit Agarwal <ankit.agrr@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 require_once(__DIR__ . '/../../../config.php');
-require_once($CFG->libdir.'/adminlib.php');
-require_once($CFG->dirroot.'/'.$CFG->admin.'/tool/category_admin/lib.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->dirroot . '/' . $CFG->admin . '/tool/category_admin/lib.php');
 
 $courseid = optional_param('courseid', 0, PARAM_INT);
 
@@ -42,7 +42,8 @@ if ($settingsnode) {
     $settingsnode->make_active();
 }
 
-    echo $OUTPUT->header();
+echo $OUTPUT->header();
+
 
 
 

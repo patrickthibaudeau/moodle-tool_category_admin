@@ -49,7 +49,7 @@ class manageplugins implements \renderable, \templatable {
     private function getModules() {
         global $USER, $DB;
         //Get system modules
-        $modules = $DB->get_records('modules', ['visible' => true]);
+        $modules = $DB->get_records('modules', ['visible' => true], 'name');
         //Get modules currently hidden in category
         $hiddenModules = $DB->get_records('tool_catadmin_categoryplugin', ['categoryid' => $this->categoryId, 'plugintype' => 'mod']);
         $hiddenModulesArray = [];
@@ -58,12 +58,12 @@ class manageplugins implements \renderable, \templatable {
             $hiddenModulesArray[$x] = $hm->pluginname;
             $x++;
         }
-                
+
 
         $data = [];
         $i = 0;
         foreach ($modules as $m) {
-            if (in_array($m->name,$hiddenModulesArray)) {
+            if (in_array($m->name, $hiddenModulesArray)) {
                 $selected = 'selected=""';
             } else {
                 $selected = '';
@@ -75,10 +75,14 @@ class manageplugins implements \renderable, \templatable {
             $data[$i]['id'] = $m->id;
             $i++;
         }
+        
+        usort($data, function ($item1, $item2) {
+            return $item1['name'] <=> $item2['name'];
+        });
 
         return $data;
     }
-    
+
     private function getThemes() {
         global $USER, $DB;
         //Get system modules
@@ -92,13 +96,13 @@ class manageplugins implements \renderable, \templatable {
             $hiddenThemesArray[$x] = $ht->pluginname;
             $x++;
         }
-                
+
 
         $data = [];
         $i = 0;
         foreach ($themes as $t) {
             $name = str_replace('theme_', '', $t->plugin);
-            if (in_array($name,$hiddenThemesArray)) {
+            if (in_array($name, $hiddenThemesArray)) {
                 $selected = 'selected=""';
             } else {
                 $selected = '';
@@ -109,10 +113,14 @@ class manageplugins implements \renderable, \templatable {
             $data[$i]['selected'] = $selected;
             $i++;
         }
+        
+        usort($data, function ($item1, $item2) {
+            return $item1['name'] <=> $item2['name'];
+        });
 
         return $data;
     }
-    
+
     private function getBlocks() {
         global $USER, $DB;
         //Get system modules
@@ -130,19 +138,23 @@ class manageplugins implements \renderable, \templatable {
         $data = [];
         $i = 0;
         foreach ($modules as $m) {
-            if (in_array($m->name,$hiddenModulesArray)) {
+            if (in_array($m->name, $hiddenModulesArray)) {
                 $selected = 'selected=""';
             } else {
                 $selected = '';
             }
             $data[$i]['shortname'] = $m->name;
-            $data[$i]['name'] = get_string('pluginname', 'block_'.$m->name);
+            $data[$i]['name'] = get_string('pluginname', 'block_' . $m->name);
             $data[$i]['selected'] = $selected;
             $data[$i]['categoryid'] = $this->categoryId;
             $data[$i]['id'] = $m->id;
             $i++;
         }
-
+        
+        usort($data, function ($item1, $item2) {
+            return $item1['name'] <=> $item2['name'];
+        });
+        
         return $data;
     }
 
@@ -164,7 +176,7 @@ class manageplugins implements \renderable, \templatable {
         $i = 0;
         foreach ($formats as $f) {
 
-            if (in_array(trim($f->plugin),$hiddenFormatsArray)) {
+            if (in_array(trim($f->plugin), $hiddenFormatsArray)) {
                 $selected = 'selected=""';
             } else {
                 $selected = '';
@@ -176,6 +188,10 @@ class manageplugins implements \renderable, \templatable {
             $data[$i]['selected'] = $selected;
             $i++;
         }
+
+        usort($data, function ($item1, $item2) {
+            return $item1['name'] <=> $item2['name'];
+        });
 
         return $data;
     }

@@ -1,29 +1,22 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            {{#str}}category, tool_category_admin{{/str}}
-                        </th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#categories}}
-                    <tr>
-                        <td>
-                            {{{category}}}
-                        </td>
-                        <td>
-                            <a href="{{{wwwroot}}}/admin/tool/category_admin/manageplugins.php?categoryid={{{categoryid}}}" class="btn btn-outline-primary">{{#str}}modify, tool_category_admin{{/str}}</a>
-                        </td>
-                    </tr>
-                    {{/categories}}
-                </tbody>
-            </table>
+            <h3>{{#str}}category, tool_category_admin{{/str}}</h3>
+            <select id="tool-category-admin" name="categories">
+                <option value="0" selected>{{#str}}select, tool_category_admin{{/str}}</option>
+                {{#categories}}
+                <option value="{{categoryid}}">{{category}}</option>
+                {{/categories}}                
+            </select>
+            <button type="button" id="tool-category-admin-modify" class="btn btn-outline-primary">
+                {{#str}}modify, tool_category_admin{{/str}}
+            </button>
+
         </div>
     </div>
 </div>
+{{#js}}
+require(['tool_category_admin/categories'], function(mod) {
+mod.init();
+});
+{{/js}}

@@ -26,7 +26,7 @@ function display_page() {
     }
 
     $url = new moodle_url('/admin/tool/category_admin/managers.php', array());
-
+    $PAGE->requires->css(new moodle_url('/admin/tool/category_admin/js/select2-4.0.3/dist/css/select2.min.css'));
     echo \tool_category_admin\Base::page($url, get_string('pluginname', 'tool_category_admin'), get_string('category_managers', 'tool_category_admin'), $context);
 
 //--------------------------------------------------------------------------

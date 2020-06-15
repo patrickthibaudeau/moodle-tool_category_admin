@@ -52,8 +52,9 @@ function display_page() {
         role_assign($role->id, $data->userid, $context->id);
         redirect($CFG->wwwroot . '/admin/tool/category_admin/managers.php');
     }
-
-    $url = new moodle_url('/admin/tool/category_admin/edit_manager.php', array('id' => $id));
+    $PAGE->requires->css(new moodle_url('/admin/tool/category_admin/js/select2-4.0.3/dist/css/select2.min.css'));
+    $PAGE->requires->js_call_amd('tool_category_admin/edit_managers', 'init', []);
+    $url = new moodle_url('/admin/tool/category_admin/edit_manager.php', array('id' => $id));    
 
     echo \tool_category_admin\Base::page($url, get_string('pluginname', 'tool_category_admin'), get_string('manager', 'tool_category_admin'), $context);
     //--------------------------------------------------------------------------

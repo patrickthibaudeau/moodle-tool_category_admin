@@ -68,6 +68,10 @@ class categories implements \renderable, \templatable {
                 $i++;
             }
         }
+        
+        usort($data, function ($item1, $item2) {
+            return $item1['category'] <=> $item2['category'];
+        });
         return $data;
     }
 

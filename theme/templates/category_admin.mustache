@@ -3,7 +3,10 @@
 <input type="hidden" id="blocked_formats" value="{{{output.get_blocked_formats}}}">
 <input type="hidden" id="blocked_blocks" value="{{{output.get_blocked_blocks}}}">
 {{#js}}
-require(['theme_boost_plus/blocked_themes'], function(mod) {
+require(['theme_YOUR_THEME/blocked_themes'], function(mod) {
+mod.init();
+});
+require(['theme_YOUR_THEME/remove_blocks'], function(mod) {
 mod.init();
 });
 {{/js}}

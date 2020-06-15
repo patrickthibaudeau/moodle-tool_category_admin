@@ -7,12 +7,14 @@ define(['jquery', 'core/log'], function ($, log) {
 
     function init_blocks() {
         var blockedBlocks = $('#blocked_blocks').val();
-        var blocks = blockedBlocks.split(',');
-        var i;
-
-        for (i = 0; i < blocks.length; i++) {
-            console.log(blocks[i]);
-            $('a[href*="&bui_addblock=' + blocks[i] + '"]').remove();
+        // Make sure there is a value in the field, otherwise all blocks will be
+        // removed
+        if (blockedBlocks) {
+            var blocks = blockedBlocks.split(',');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                $('a[href*="&bui_addblock=' + blocks[i] + '"]').remove();
+            }
         }
     }
 

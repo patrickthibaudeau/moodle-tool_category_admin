@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.php.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
-            <name>category_admin</name>
+            <name>moodle-tool_category_admin</name>
         </data>
     </configuration>
 </project>

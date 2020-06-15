@@ -1,6 +1,5 @@
 <?php
 
-
 namespace tool_category_admin;
 
 class Base {
@@ -19,7 +18,7 @@ class Base {
      */
     public static function page($url, $pagetitle, $pageheading, $context, $pagelayout = 'admin') {
         global $CFG, $PAGE, $SITE;
-        
+
         $stringman = get_string_manager();
         $strings = $stringman->load_component_strings('tool_category_admin', current_language());
 
@@ -43,11 +42,24 @@ class Base {
         return array('subdirs' => 0, 'maxbytes' => $CFG->maxbytes, 'maxfiles' => $maxfiles);
     }
 
-    
     public static function getEditorOptions($context) {
         global $CFG;
         return array('subdirs' => 1, 'maxbytes' => $CFG->maxbytes, 'maxfiles' => -1,
             'changeformat' => 1, 'context' => $context, 'noclean' => 1, 'trusttext' => 0);
+    }
+
+    /**
+     * Get child categories
+     * @global \moodle_database $DB
+     * @param type $categoryId
+     */
+    public static function getChildCategories($categoryId) {
+        global $DB;
+
+        $cat = \core_course_category::get($categoryId);
+        $children = $cat->get_all_children_ids();
+
+        return $children;
     }
 
 }
